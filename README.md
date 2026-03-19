@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 # Memory Group App
 

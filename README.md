@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+
 # Memory Group App
 
 추억을 함께 기록하고 다시 돌아보는 그룹 기반 Private SNS 모바일 앱 프로젝트입니다.
@@ -28,7 +30,7 @@ npm run web
 
 ## 가장 먼저 보면 좋은 파일
 
-- [app/_layout.tsx](C:\Users\82109\OneDrive - 데이콘\바탕 화면\work\mobile-app\app\_layout.tsx)
+- [app/_layout.tsx](C:\Users\82109\OneDrive - 데이콘\바탕 화면\work\mobile-app\app_layout.tsx)
 - [src/screens/HomeScreen.tsx](C:\Users\82109\OneDrive - 데이콘\바탕 화면\work\mobile-app\src\screens\HomeScreen.tsx)
 - [src/data/mockData.ts](C:\Users\82109\OneDrive - 데이콘\바탕 화면\work\mobile-app\src\data\mockData.ts)
 - [src/context/AppDataProvider.tsx](C:\Users\82109\OneDrive - 데이콘\바탕 화면\work\mobile-app\src\context\AppDataProvider.tsx)
@@ -89,4 +91,8 @@ src/utils/       간단한 유틸 함수
 - 실행 방법: [HOW_TO_RUN.md](C:\Users\82109\OneDrive - 데이콘\바탕 화면\work\mobile-app\HOW_TO_RUN.md)
 - GitHub 업로드 방법: [HOW_TO_UPLOAD_TO_GITHUB.md](C:\Users\82109\OneDrive - 데이콘\바탕 화면\work\mobile-app\HOW_TO_UPLOAD_TO_GITHUB.md)
 - 기능 추가 방법: [HOW_TO_ADD_FEATURES_LATER.md](C:\Users\82109\OneDrive - 데이콘\바탕 화면\work\mobile-app\HOW_TO_ADD_FEATURES_LATER.md)
-- 협업 안내: [AGENTS.md](C:\Users\82109\OneDrive - 데이콘\바탕 화면\work\mobile-app\AGENTS.md)
+- # 협업 안내: [AGENTS.md](C:\Users\82109\OneDrive - 데이콘\바탕 화면\work\mobile-app\AGENTS.md)
+
+# U-US
+
+U:US 개발 코드

@@ -1,6 +1,7 @@
-import { Tabs } from 'expo-router';
+import { Redirect, Tabs } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { useAppData } from '../../src/context/AppDataProvider';
 import { tabBarTheme } from '../../src/constants/tabBar';
 
 const TAB_ICONS: Record<string, string> = {
@@ -11,6 +12,16 @@ const TAB_ICONS: Record<string, string> = {
 };
 
 export default function TabsLayout() {
+  const { isLoggedIn, isAuthLoading } = useAppData();
+
+  if (isAuthLoading) {
+    return null;
+  }
+
+  if (!isLoggedIn) {
+    return <Redirect href="/login" />;
+  }
+
   return (
     <Tabs
       screenOptions={({ route }) => ({

@@ -12,13 +12,17 @@ import {
   View,
 } from 'react-native';
 
-import { supabase } from '../lib/supabase';
 import { useRouter } from 'expo-router';
+
+import { signUpWithEmail, verifySignupOtp, resendSignupOtp } from '../services/authService';
+import { ensureProfile } from '../services/profileService';
+import { useAppData } from '../context/AppDataProvider';
 
 type Step = 'form' | 'verify';
 
 export default function SignUpScreen() {
   const router = useRouter();
+  const { login } = useAppData();
 
   const [step, setStep] = useState<Step>('form');
   const [fullName, setFullName] = useState('');
@@ -52,24 +56,33 @@ export default function SignUpScreen() {
     }
 
     setLoading(true);
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { full_name: fullName },
-      },
-    });
+    const { data, error } = await signUpWithEmail(email.trim(), password, fullName.trim());
     setLoading(false);
 
     if (error) {
       Alert.alert('Sign Up Error', error.message);
-    } else {
-      Alert.alert(
-        'Verification Sent',
-        'A verification code has been sent to your email.',
-        [{ text: 'OK', onPress: () => setStep('verify') }],
-      );
+      return;
     }
+
+    if (data.user) {
+      await ensureProfile({
+        id: data.user.id,
+        email: data.user.email,
+        fullName: fullName.trim(),
+      });
+    }
+
+    if (data.session) {
+      await login(data.session);
+      router.replace('/(tabs)/planet');
+      return;
+    }
+
+    Alert.alert(
+      'Verification Sent',
+      'A verification code has been sent to your email.',
+      [{ text: 'OK', onPress: () => setStep('verify') }],
+    );
   };
 
   const handleVerifyOtp = async () => {
@@ -79,26 +92,29 @@ export default function SignUpScreen() {
     }
 
     setLoading(true);
-    const { error } = await supabase.auth.verifyOtp({
-      email,
-      token: otpCode,
-      type: 'signup',
-    });
+    const { data, error } = await verifySignupOtp(email.trim(), otpCode);
     setLoading(false);
 
     if (error) {
       Alert.alert('Verification Error', error.message);
-    } else {
-      router.replace('/(tabs)/planet');
+      return;
     }
+
+    if (data.user) {
+      await ensureProfile({
+        id: data.user.id,
+        email: data.user.email,
+        fullName: fullName.trim(),
+      });
+    }
+
+    await login(data.session ?? null);
+    router.replace('/(tabs)/planet');
   };
 
   const handleResendCode = async () => {
     setLoading(true);
-    const { error } = await supabase.auth.resend({
-      type: 'signup',
-      email,
-    });
+    const { error } = await resendSignupOtp(email.trim());
     setLoading(false);
 
     if (error) {
@@ -196,7 +212,7 @@ export default function SignUpScreen() {
         {/* Full Name */}
         <Text style={styles.label}>Full Name</Text>
         <View style={styles.inputContainer}>
-          <Text style={styles.inputIcon}>{'👤'}</Text>
+          <Text style={styles.inputIcon}>{'?뫀'}</Text>
           <TextInput
             style={styles.input}
             placeholder=""
@@ -208,7 +224,7 @@ export default function SignUpScreen() {
         {/* Email */}
         <Text style={styles.label}>Email Address</Text>
         <View style={styles.inputContainer}>
-          <Text style={styles.inputIcon}>{'✉'}</Text>
+          <Text style={styles.inputIcon}>{'??}</Text>
           <TextInput
             style={styles.input}
             placeholder="alina.solvaeica@gmail.com"
@@ -223,7 +239,7 @@ export default function SignUpScreen() {
         {/* Password */}
         <Text style={styles.label}>Password</Text>
         <View style={styles.inputContainer}>
-          <Text style={styles.inputIcon}>{'🔒'}</Text>
+          <Text style={styles.inputIcon}>{'?뵏'}</Text>
           <TextInput
             style={styles.input}
             placeholder=""
@@ -236,7 +252,7 @@ export default function SignUpScreen() {
         {/* Confirm Password */}
         <Text style={styles.label}>Confirm Password</Text>
         <View style={styles.inputContainer}>
-          <Text style={styles.inputIcon}>{'🔐'}</Text>
+          <Text style={styles.inputIcon}>{'?뵍'}</Text>
           <TextInput
             style={styles.input}
             placeholder=""

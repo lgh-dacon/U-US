@@ -1,6 +1,8 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
+  ActivityIndicator,
+  Alert,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -11,6 +13,7 @@ import {
   View,
 } from 'react-native';
 
+import { signInWithEmail } from '../services/authService';
 import { useAppData } from '../context/AppDataProvider';
 
 export default function LoginScreen() {
@@ -20,9 +23,24 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
-    login();
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Please enter your email and password.');
+      return;
+    }
+
+    setLoading(true);
+    const { data, error } = await signInWithEmail(email.trim(), password);
+    setLoading(false);
+
+    if (error) {
+      Alert.alert('Login Error', error.message);
+      return;
+    }
+
+    await login(data.session);
     router.replace('/(tabs)/planet');
   };
 
@@ -52,7 +70,7 @@ export default function LoginScreen() {
         {/* Email */}
         <Text style={styles.label}>Email Address</Text>
         <View style={styles.inputContainer}>
-          <Text style={styles.inputIcon}>{'✉'}</Text>
+          <Text style={styles.inputIcon}>{'??}</Text>
           <TextInput
             style={styles.input}
             placeholder="alina.solvaeica@gmail.com"
@@ -67,7 +85,7 @@ export default function LoginScreen() {
         {/* Password */}
         <Text style={styles.label}>Password</Text>
         <View style={styles.inputContainer}>
-          <Text style={styles.inputIcon}>{'🔒'}</Text>
+          <Text style={styles.inputIcon}>{'?뵏'}</Text>
           <TextInput
             style={styles.input}
             placeholder=""
@@ -88,14 +106,18 @@ export default function LoginScreen() {
           onPress={() => setRememberMe(!rememberMe)}
         >
           <View style={[styles.checkbox, rememberMe && styles.checkboxChecked]}>
-            {rememberMe && <Text style={styles.checkmark}>{'✓'}</Text>}
+            {rememberMe && <Text style={styles.checkmark}>{'??}</Text>}
           </View>
           <Text style={styles.rememberText}>Remember me</Text>
         </Pressable>
 
         {/* Login button */}
-        <Pressable style={styles.primaryButton} onPress={handleLogin}>
-          <Text style={styles.primaryButtonText}>Login</Text>
+        <Pressable style={styles.primaryButton} onPress={handleLogin} disabled={loading}>
+          {loading ? (
+            <ActivityIndicator color="#FFFFFF" />
+          ) : (
+            <Text style={styles.primaryButtonText}>Login</Text>
+          )}
         </Pressable>
 
         {/* Divider */}
@@ -106,20 +128,20 @@ export default function LoginScreen() {
         </View>
 
         {/* Social login */}
-        <Pressable style={[styles.socialButton, styles.kakaoButton]} onPress={handleLogin}>
+        <Pressable style={[styles.socialButton, styles.kakaoButton]}>
           <Text style={styles.socialButtonText}>Continue with Kakaotalk</Text>
         </Pressable>
 
-        <Pressable style={[styles.socialButton, styles.naverButton, { marginTop: 12 }]} onPress={handleLogin}>
+        <Pressable style={[styles.socialButton, styles.naverButton, { marginTop: 12 }]}>
           <Text style={[styles.socialButtonText, { color: '#FFFFFF' }]}>Continue with Naver</Text>
         </Pressable>
 
-        <Pressable style={[styles.socialButton, { marginTop: 12 }]} onPress={handleLogin}>
+        <Pressable style={[styles.socialButton, { marginTop: 12 }]}>
           <Text style={styles.socialIcon}>G</Text>
           <Text style={styles.socialButtonText}>Continue with Google</Text>
         </Pressable>
 
-        <Pressable style={[styles.socialButton, { marginTop: 12 }]} onPress={handleLogin}>
+        <Pressable style={[styles.socialButton, { marginTop: 12 }]}>
           <Text style={styles.socialIcon}>{''}</Text>
           <Text style={styles.socialButtonText}>Continue with Apple</Text>
         </Pressable>

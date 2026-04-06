@@ -53,24 +53,20 @@ export default function LoginScreen() {
         contentContainerStyle={styles.scroll}
         keyboardShouldPersistTaps="handled"
       >
-        {/* Back button */}
         <Pressable style={styles.backButton} onPress={() => router.back()}>
           <Text style={styles.backArrow}>{'<'}</Text>
         </Pressable>
 
-        {/* Logo */}
         <View style={styles.logoContainer}>
           <Text style={styles.logoIcon}>{'<*>'}</Text>
         </View>
 
-        {/* Title */}
         <Text style={styles.title}>Login</Text>
         <Text style={styles.subtitle}>please login to your account</Text>
 
-        {/* Email */}
         <Text style={styles.label}>Email Address</Text>
         <View style={styles.inputContainer}>
-          <Text style={styles.inputIcon}>{'??}</Text>
+          <Text style={styles.inputIcon}>@</Text>
           <TextInput
             style={styles.input}
             placeholder="alina.solvaeica@gmail.com"
@@ -82,10 +78,9 @@ export default function LoginScreen() {
           />
         </View>
 
-        {/* Password */}
         <Text style={styles.label}>Password</Text>
         <View style={styles.inputContainer}>
-          <Text style={styles.inputIcon}>{'?뵏'}</Text>
+          <Text style={styles.inputIcon}>*</Text>
           <TextInput
             style={styles.input}
             placeholder=""
@@ -95,23 +90,20 @@ export default function LoginScreen() {
           />
         </View>
 
-        {/* Forgot password */}
         <Pressable style={styles.forgotRow}>
           <Text style={styles.forgotText}>Forgot password?</Text>
         </Pressable>
 
-        {/* Remember me */}
         <Pressable
           style={styles.rememberRow}
           onPress={() => setRememberMe(!rememberMe)}
         >
           <View style={[styles.checkbox, rememberMe && styles.checkboxChecked]}>
-            {rememberMe && <Text style={styles.checkmark}>{'??}</Text>}
+            {rememberMe && <Text style={styles.checkmark}>V</Text>}
           </View>
           <Text style={styles.rememberText}>Remember me</Text>
         </Pressable>
 
-        {/* Login button */}
         <Pressable style={styles.primaryButton} onPress={handleLogin} disabled={loading}>
           {loading ? (
             <ActivityIndicator color="#FFFFFF" />
@@ -120,14 +112,12 @@ export default function LoginScreen() {
           )}
         </Pressable>
 
-        {/* Divider */}
         <View style={styles.dividerRow}>
           <View style={styles.dividerLine} />
           <Text style={styles.dividerText}>Or</Text>
           <View style={styles.dividerLine} />
         </View>
 
-        {/* Social login */}
         <Pressable style={[styles.socialButton, styles.kakaoButton]}>
           <Text style={styles.socialButtonText}>Continue with Kakaotalk</Text>
         </Pressable>
@@ -142,11 +132,10 @@ export default function LoginScreen() {
         </Pressable>
 
         <Pressable style={[styles.socialButton, { marginTop: 12 }]}>
-          <Text style={styles.socialIcon}>{''}</Text>
+          <Text style={styles.socialIcon}>A</Text>
           <Text style={styles.socialButtonText}>Continue with Apple</Text>
         </Pressable>
 
-        {/* Bottom link */}
         <View style={styles.bottomRow}>
           <Text style={styles.bottomLabel}>New user? </Text>
           <Pressable onPress={() => router.push('/signup')}>
@@ -169,7 +158,6 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingBottom: 40,
   },
-
   backButton: {
     alignSelf: 'flex-start',
     marginBottom: 24,
@@ -179,7 +167,6 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontWeight: '300',
   },
-
   logoContainer: {
     width: 44,
     height: 44,
@@ -194,7 +181,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
   },
-
   title: {
     fontSize: 26,
     fontWeight: '700',
@@ -206,14 +192,12 @@ const styles = StyleSheet.create({
     color: '#999999',
     marginBottom: 28,
   },
-
   label: {
     fontSize: 14,
     fontWeight: '500',
     color: '#000000',
     marginBottom: 8,
   },
-
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -236,7 +220,6 @@ const styles = StyleSheet.create({
     color: '#000000',
     padding: 0,
   },
-
   forgotRow: {
     alignSelf: 'flex-end',
     marginBottom: 16,
@@ -247,7 +230,6 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontWeight: '500',
   },
-
   rememberRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -276,7 +258,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#333333',
   },
-
   primaryButton: {
     backgroundColor: '#000000',
     borderRadius: 12,
@@ -289,7 +270,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-
   dividerRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -305,7 +285,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginHorizontal: 12,
   },
-
   socialButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -334,7 +313,6 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontWeight: '500',
   },
-
   bottomRow: {
     flexDirection: 'row',
     justifyContent: 'center',

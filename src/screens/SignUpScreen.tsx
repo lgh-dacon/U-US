@@ -134,27 +134,23 @@ export default function SignUpScreen() {
           contentContainerStyle={styles.scroll}
           keyboardShouldPersistTaps="handled"
         >
-          {/* Back */}
           <Pressable style={styles.backButton} onPress={() => setStep('form')}>
             <Text style={styles.backArrow}>{'<'}</Text>
           </Pressable>
 
-          {/* Logo */}
           <View style={styles.logoContainer}>
             <Text style={styles.logoIcon}>{'<*>'}</Text>
           </View>
 
-          {/* Title */}
           <Text style={styles.title}>Verify Email</Text>
           <Text style={styles.subtitle}>
             We sent a 6-digit code to{'\n'}
             <Text style={styles.emailHighlight}>{email}</Text>
           </Text>
 
-          {/* OTP Input */}
           <Text style={styles.label}>Verification Code</Text>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputIcon}>{'#'}</Text>
+            <Text style={styles.inputIcon}>#</Text>
             <TextInput
               style={styles.input}
               placeholder="000000"
@@ -166,7 +162,6 @@ export default function SignUpScreen() {
             />
           </View>
 
-          {/* Verify button */}
           <Pressable style={styles.primaryButton} onPress={handleVerifyOtp} disabled={loading}>
             {loading ? (
               <ActivityIndicator color="#FFFFFF" />
@@ -175,7 +170,6 @@ export default function SignUpScreen() {
             )}
           </Pressable>
 
-          {/* Resend */}
           <View style={styles.bottomRow}>
             <Text style={styles.bottomLabel}>Didn't receive the code? </Text>
             <Pressable onPress={handleResendCode}>
@@ -196,23 +190,19 @@ export default function SignUpScreen() {
         contentContainerStyle={styles.scroll}
         keyboardShouldPersistTaps="handled"
       >
-        {/* Back to home */}
         <Pressable style={styles.backButton} onPress={() => router.replace('/onboarding')}>
           <Text style={styles.backArrow}>{'<'}</Text>
         </Pressable>
 
-        {/* Logo */}
         <View style={styles.logoContainer}>
           <Text style={styles.logoIcon}>{'<*>'}</Text>
         </View>
 
-        {/* Title */}
         <Text style={styles.title}>Register</Text>
 
-        {/* Full Name */}
         <Text style={styles.label}>Full Name</Text>
         <View style={styles.inputContainer}>
-          <Text style={styles.inputIcon}>{'?뫀'}</Text>
+          <Text style={styles.inputIcon}>N</Text>
           <TextInput
             style={styles.input}
             placeholder=""
@@ -221,10 +211,9 @@ export default function SignUpScreen() {
           />
         </View>
 
-        {/* Email */}
         <Text style={styles.label}>Email Address</Text>
         <View style={styles.inputContainer}>
-          <Text style={styles.inputIcon}>{'??}</Text>
+          <Text style={styles.inputIcon}>@</Text>
           <TextInput
             style={styles.input}
             placeholder="alina.solvaeica@gmail.com"
@@ -236,10 +225,9 @@ export default function SignUpScreen() {
           />
         </View>
 
-        {/* Password */}
         <Text style={styles.label}>Password</Text>
         <View style={styles.inputContainer}>
-          <Text style={styles.inputIcon}>{'?뵏'}</Text>
+          <Text style={styles.inputIcon}>*</Text>
           <TextInput
             style={styles.input}
             placeholder=""
@@ -249,10 +237,9 @@ export default function SignUpScreen() {
           />
         </View>
 
-        {/* Confirm Password */}
         <Text style={styles.label}>Confirm Password</Text>
         <View style={styles.inputContainer}>
-          <Text style={styles.inputIcon}>{'?뵍'}</Text>
+          <Text style={styles.inputIcon}>*</Text>
           <TextInput
             style={styles.input}
             placeholder=""
@@ -262,7 +249,6 @@ export default function SignUpScreen() {
           />
         </View>
 
-        {/* Password strength */}
         {password.length > 0 && (
           <View style={styles.strengthRow}>
             <Text style={styles.strengthLabel}>Password strength: </Text>
@@ -282,7 +268,6 @@ export default function SignUpScreen() {
           </View>
         )}
 
-        {/* Sign Up button */}
         <Pressable style={styles.primaryButton} onPress={handleSignUp} disabled={loading}>
           {loading ? (
             <ActivityIndicator color="#FFFFFF" />
@@ -291,7 +276,6 @@ export default function SignUpScreen() {
           )}
         </Pressable>
 
-        {/* Bottom link */}
         <View style={styles.bottomRow}>
           <Text style={styles.bottomLabel}>Already have an account? </Text>
           <Pressable onPress={() => router.push('/login')}>
@@ -314,7 +298,6 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingBottom: 40,
   },
-
   backButton: {
     alignSelf: 'flex-start',
     marginBottom: 24,
@@ -324,7 +307,6 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontWeight: '300',
   },
-
   logoContainer: {
     width: 44,
     height: 44,
@@ -339,14 +321,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
   },
-
   title: {
     fontSize: 26,
     fontWeight: '700',
     color: '#000000',
     marginBottom: 12,
   },
-
   subtitle: {
     fontSize: 15,
     color: '#666666',
@@ -357,14 +337,12 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontWeight: '600',
   },
-
   label: {
     fontSize: 14,
     fontWeight: '500',
     color: '#000000',
     marginBottom: 8,
   },
-
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -387,7 +365,6 @@ const styles = StyleSheet.create({
     color: '#000000',
     padding: 0,
   },
-
   strengthRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -412,7 +389,6 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRadius: 2,
   },
-
   primaryButton: {
     backgroundColor: '#000000',
     borderRadius: 12,
@@ -425,7 +401,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-
   bottomRow: {
     flexDirection: 'row',
     justifyContent: 'center',

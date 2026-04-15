@@ -115,6 +115,7 @@ create table public.saved_items (
 create table public.activity_logs (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users(id) on delete cascade,
+  receiver_id uuid references auth.users(id) on delete set null, -- 알림 수신자 (like→게시물 작성자, comment→게시물 작성자 등)
   action text not null,        -- 'post_created' | 'comment' | 'like' | 'join_group' | 'upload' 등
   target_type text,            -- 'post' | 'media' | 'group' | 'comment'
   target_id uuid,
@@ -267,8 +268,10 @@ create policy "saved_select" on public.saved_items for select using (auth.uid() 
 create policy "saved_insert" on public.saved_items for insert with check (auth.uid() = user_id);
 create policy "saved_delete" on public.saved_items for delete using (auth.uid() = user_id);
 
--- activity_logs: 본인만
-create policy "activity_select" on public.activity_logs for select using (auth.uid() = user_id);
+-- activity_logs: 행동한 본인 또는 알림 수신자 조회 가능, 삽입은 행동한 본인만
+create policy "activity_select" on public.activity_logs for select using (
+  auth.uid() = user_id or auth.uid() = receiver_id
+);
 create policy "activity_insert" on public.activity_logs for insert with check (auth.uid() = user_id);
 
 -- share_logs: 본인만

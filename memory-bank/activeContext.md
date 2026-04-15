@@ -18,12 +18,17 @@ MyPage 비즈니스 로직 서비스 파일 구현 완료.
 | `src/services/profileService.ts` | 프로필 조회/생성/수정 | 완료 |
 | `src/services/notificationService.ts` | 알림 조회/생성 | 완료 |
 | `src/services/mediaService.ts` | 미디어 조회 | 완료 |
+| `src/services/groupService.ts` | 그룹 생성/조회/참여/탈퇴/초대 | 완료 |
+| `src/services/postService.ts` | 피드/게시물 CRUD | 완료 |
+| `src/services/uploadService.ts` | Storage 업로드/삭제 | 완료 |
+| `src/services/likeService.ts` | 좋아요 토글/조회 | 완료 |
+| `src/services/commentService.ts` | 댓글 작성/조회/삭제 | 완료 |
 
 ---
 
 ## 다음 할 일 (우선순위 순)
 
-### 1. Supabase DB 마이그레이션 실행 (즉시 필요)
+### 1. Supabase DB 마이그레이션 실행 (즉시 필요, 미완료)
 - `scripts/migration_add_receiver_id.sql` 내용을 **Supabase Dashboard → SQL Editor**에서 실행
 - 실행 전까지 `notificationService.ts`의 `receiver_id` 관련 기능이 동작하지 않음
 
@@ -35,17 +40,20 @@ MyPage 비즈니스 로직 서비스 파일 구현 완료.
   - `fetchMyMedia(userId)` → 내 미디어 그리드 표시
   - `fetchMyNotifications(userId)` → 알림 목록 표시
 
-### 3. 좋아요 / 댓글 기능 서비스 파일 구현
-- `likeService.ts`: 좋아요 추가/취소 + `createNotification` 연동
-- `commentService.ts`: 댓글 작성/삭제 + `createNotification` 연동
-- 서비스 함수 내에서 알림을 자동 생성하는 흐름
+### 3. Supabase RLS 재귀 버그 수정 (즉시 필요)
+- `scripts/fix-rls-recursion.sql` 을 Supabase SQL Editor에서 실행
+- 실행 전까지 그룹/게시물 관련 기능 동작 불가
 
-### 4. 그룹 관련 서비스 파일 구현
-- `groupService.ts`: 그룹 목록 조회, 그룹 생성, 멤버 추가/삭제
-- `inviteService.ts`: 초대 코드 생성, 초대 코드로 그룹 참여
+### 4. Supabase Storage 버킷 생성
+- Dashboard > Storage > New bucket > 이름: `media`, Public 버킷으로 생성
+- `uploadService.ts` 동작을 위한 전제 조건
 
-### 5. 피드 서비스 파일 구현
-- `postService.ts`: 게시물 CRUD, 피드 목록 조회 (그룹 멤버 기준)
+### 5. 화면 실제 연동 (서비스 → 화면 교체)
+- `HomeScreen`, `FeedScreen` → `postService`, `groupService`
+- `GroupCreateScreen`, `GroupJoinScreen` → `groupService`
+- `UploadScreen` → `uploadService`
+- `PostDetailScreen` → `likeService`, `commentService`
+- `MyPageScreen` → `profileService`, `mediaService`, `notificationService`
 
 ---
 

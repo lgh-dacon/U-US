@@ -7,7 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:group": "npx ts-node --project scripts/tsconfig.json scripts/test-group-service.ts"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.1.1",

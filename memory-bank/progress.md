@@ -55,6 +55,26 @@
 
 ---
 
+---
+
+### 2026-04-15 (오늘 추가)
+
+#### 3. `groupService.ts` 구현
+
+**신규 파일**: `src/services/groupService.ts`
+
+- `createGroup(userId, input)` — 그룹 생성 + 생성자 owner로 자동 등록
+- `fetchMyGroups(userId)` — 내가 속한 그룹 목록 (group_members → groups join)
+- `fetchGroupById(groupId)` — 그룹 단건 상세 조회
+- `generateInviteCode(userId, groupId, expiresInDays?)` — 초대 코드 발급 (기본 7일 만료)
+- `joinGroupByCode(userId, inviteCode)` — 초대 코드로 그룹 참여 (유효성 검사 포함)
+- `fetchGroupMembers(groupId)` — 멤버 목록 조회 + profiles join + role 순서 정렬
+- `leaveGroup(userId, groupId)` — 탈퇴 (owner 탈퇴 방지 로직 포함)
+
+연동 테이블: `groups`, `group_members`, `invites`
+
+---
+
 ## 미완료 / 다음 할 일
 
 → `activeContext.md` 참조
